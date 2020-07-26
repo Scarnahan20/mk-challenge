@@ -5,6 +5,8 @@ import './App.css';
 
 
 function App() {
+  const request = new Request("https://grpuv0upxe.execute-api.us-west-2.amazonaws.com/");
+
   const [name, setName] = useState({
     error: false,
     text: "",
@@ -24,7 +26,9 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault()
     if(checkFields) {
-      
+      fetch(request)
+        .then(response => response.json())
+        .then(data => console.log(data));
     }
   }
 
