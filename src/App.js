@@ -6,22 +6,17 @@ import './App.css';
 
 function App() {
   const [name, setName] = useState({
-    error: true,
+    error: false,
     text: "",
     helper: ""
   });
   const [email, setEmail] = useState({
-    error: true,
+    error: false,
     text: "",
     helper: ""
   });
   const [message, setMessage] = useState({
-    error: true,
-    text: "",
-    helper: ""
-  });
-  const [password, setPassword] = useState({
-    error: true,
+    error: false,
     text: "",
     helper: ""
   });
@@ -35,7 +30,7 @@ function App() {
 
   function checkFields(){
     
-    if (name.error && email.error && message.error && password.error){
+    if (name.error && email.error && message.error){
       return true;
     } else {
       return false;
@@ -53,7 +48,23 @@ function App() {
         };
       });
 
-      
+      if (name.text.trim() === ''){
+        setName(prevValue => {
+          return {
+            ...prevValue,
+            error: true,
+            helper: 'Name is required.'
+          };
+        });
+      } else {
+        setName(prevValue => {
+          return {
+            ...prevValue,
+            error: false,
+            helper: ''
+          };
+        });
+      }
     } else if (fieldName === 'email') {
       setEmail(prevValue => {
         return {
@@ -104,36 +115,12 @@ function App() {
           };
         });
       }
-    } else if (fieldName === 'password'){
-      setPassword(prevValue => {
-        return {
-          ...prevValue,
-          text: currValue
-        };
-      });
-
-      if (password.text.trim() === ''){
-        setPassword(prevValue => {
-          return {
-            ...prevValue,
-            error: true,
-            helper: 'Password is required.'
-          };
-        });
-      } else {
-        setPassword(prevValue => {
-          return {
-            ...prevValue,
-            error: false,
-            helper: ''
-          };
-        });
-      }
     }
   }
 
   return (
     <div className="App">
+      <h1>Contact Us</h1>
       <form onSubmit={handleSubmit} >
         <div>
           <TextField
@@ -173,17 +160,6 @@ function App() {
           />
         </div>
         <div>
-          <TextField
-            error={password.error}
-            helperText={password.helper}
-            name="password"
-            label="Password"
-            onChange={handleChange}
-            style={{margin: 4}}
-            type="password"
-            value={password.text}
-            variant="filled"
-          />
         </div>
           <Button color="primary" type="submit" variant="contained">
             Submit
