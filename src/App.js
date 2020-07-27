@@ -26,9 +26,23 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault()
     if(checkFields) {
-      fetch(request)
+      const submitted = {
+        "subject": name,
+        "recipient": email,
+        "body": message
+      };
+      fetch(request, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submitted),
+      })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => console.log(data))
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
   }
 
