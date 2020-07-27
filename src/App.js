@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   const request = new Request("https://grpuv0upxe.execute-api.us-west-2.amazonaws.com");
-  const finished = false;
+
 
   const [name, setName] = useState({
     error: false,
@@ -43,7 +43,7 @@ function App() {
         .catch((error) => {
           console.error('Error:', error);
         });
-        finished = true;
+        alert("Thank you for your submission.")
     }
   }
 
@@ -183,7 +183,6 @@ function App() {
           <Button color="primary" type="submit" variant="contained">
             Submit
           </Button>
-          {finished? <p>Thank you for your submission.</p>: null}
       </form>
     </div>
   );
